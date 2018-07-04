@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition template="/templates/template.xhtml">
+        <ui:define name="titulo">Lista de Cartas</ui:define>
+        <ui:define name="conteudo">
+            <h:form id="formListagem">
+                <h:panelGroup>
+                    <p:messages/>
+                    <p:carousel value="#{controleCarta.dao.listaTodos}" headerText="Jogo" var="carta" itemStyle="text-align:center" responsive="true">
+                        <p:panelGrid columns="2" style="width:100%;margin:10px 0px"  layout="grid" styleClass="ui-panelgrid-blank">
+                            <f:facet name="header">
+                                <p:graphicImage library="imagens" name="#{carta.nome}.jpg" width="100"/>
+                            </f:facet>
+ 
+                            <h:outputLabel value="Nome:" />
+                            <h:outputText value="#{carta.nome}" />
+                            
+                            <h:outputLabel value="Descrição:" />
+                            <h:outputText value="#{carta.descricao}"/>
+ 
+                            <h:outputLabel value="Raridade:" />
+                            <h:outputText value="#{carta.raridade}"/>
+                            
+                            <f:facet name="footer" >
+                                <p:commandButton icon="ui-icon-plus" style="margin-left: 43%;"
+                                                 actionListener="#{controleLogin.jogadorAutenticado.deck.add(carta)}"
+                                                 process="@form"
+                                                 update="formListagem"
+                                                 rendered="#{controleLogin.jogadorAutenticado.deck.contains(carta) == false}">
+                                </p:commandButton>
+                                
+                            </f:facet>
+ 
+                        </p:panelGrid>
+                        
+                        
+ 
+                     
+                    </p:carousel>
+                    
+                    <p:commandButton value="Salvar"
+                                     actionListener="#{controleJogador.alteraSalva(controleLogin.jogadorAutenticado)}"
+                                     update="formListagem"/>
+
+                </h:panelGroup>
+            </h:form>
+            
+            
+        </ui:define>
+    </ui:composition>
+</html>
+

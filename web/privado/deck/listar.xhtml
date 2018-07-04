@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition template="/templates/template.xhtml">
+        <ui:define name="titulo">Deck</ui:define>
+        <ui:define name="conteudo">
+            <h:form id="formListagem">
+                <h:panelGroup>
+                    <p:messages/>
+                    
+                    <p:commandButton value="Salvar Alterações"
+                                     actionListener="#{controleJogador.alteraSalva(controleLogin.jogadorAutenticado)}"
+                                     update="formListagem"/>
+                    
+                    <p:dataGrid var="obj" value="#{controleLogin.jogadorAutenticado.deck}" layout="grid" columns="3" >
+ 
+                        <f:facet name="header">
+                            
+                        </f:facet>
+
+                        <p:panel header="#{obj.nome}" style="text-align:center" toggleable="true" collapsed="true">
+                            <h:panelGrid columns="1" style="width:100%">
+                                <p:graphicImage library="imagens" name="#{obj.nome}.jpg" width="75"/>
+                        
+                                <p:commandButton icon="ui-icon-trash" style="margin-top: 5px;"
+                                         actionListener="#{controleLogin.jogadorAutenticado.deck.remove(obj)}"
+                                                 process="@this"
+                                                 update="formListagem" />
+                            </h:panelGrid>
+                        </p:panel>
+ 
+    </p:dataGrid>
+                </h:panelGroup>
+            </h:form>
+            
+        </ui:define>
+    </ui:composition>
+</html>
+
+
